@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portföy Performans Raporu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #1e1e1e; /* Background color from the image */
+            color: #d4d4d4; /* Text color from the image */
+        }
+        .dataframe {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .dataframe th, .dataframe td {
+            border: 1px solid #444; /* Border color from the image */
+            padding: 8px;
+            text-align: left;
+        }
+        .dataframe th {
+            background-color: #333; /* Header background color from the image */
+            color: #d4d4d4; /* Header text color */
+        }
+        .dataframe tr:nth-child(even) {
+            background-color: #2e2e2e; /* Even row background color */
+        }
+        .dataframe tr:last-child {
+            background-color: #333; /* Last row background color */
+            color: #d4d4d4; /* Last row text color */
+        }
+        .title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ffffff; /* Title color */
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .timestamp {
+            font-size: 0.9em;
+            color: #b0b0b0; /* Timestamp color */
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+        .tab-buttons button {
+            background-color: #444; /* Button background color */
+            color: #d4d4d4; /* Button text color */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+        .tab-buttons button.active {
+            background-color: #666; /* Active button background color */
+        }
+        /* Kontrast Ekleme */
+        .dataframe tr:first-child th {
+            background-color: #ff8c00; /* İlk satır başlığı için turuncu */
+        }
+        .dataframe td:first-child {
+            background-color: #00b050; /* İlk sütun için yeşil */
+        }
+        .dataframe tr:nth-child(odd) {
+            background-color: #222222; /* Tek satırlar için daha koyu gri */
+        }
+        .title {
+            color: #ff8c00; /* Başlık için turuncu */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Portföy Performans Raporu</h1>
+    </div>
+    <div class="timestamp">
+        {{ timestamp }}
+    </div>
+    <div class="tab-buttons">
+        <button class="tab-link active" onclick="openTab('Getiri')">Getiri</button>
+        <button class="tab-link" onclick="openTab('Risk')">Risk</button>
+	<button class="tab-link" onclick="openTab('Portföy')">Portföy</button>
+	<button class="tab-link" onclick="openTab('Nakit')">Nakit Akış</button>
+    </div>
+    <div id="Getiri" class="tab active">
+        {% for title, table in getiri_tables %}
+            <div class="title">{{ title }}</div>
+            {{ table | safe }}
+        {% endfor %}
+    </div>
+    <div id="Risk" class="tab">
+        {% for title, table in risk_tables %}
+            <div class="title">{{ title }}</div>
+            {{ table | safe }}
+        {% endfor %}
+    </div>
+    <div id="Portföy" class="tab">
+        <!-- Grafikler içeriği buraya eklenecek -->
+    </div>
+    <div id="Nakit" class="tab">
+        <!-- Grafikler içeriği buraya eklenecek -->
+    </div>
+    <script>
+        function openTab(tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
