@@ -4,3 +4,4 @@ requests
 matplotlib
 relativedelta
 jinja2
+webbrowser
